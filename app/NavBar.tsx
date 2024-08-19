@@ -1,12 +1,11 @@
 "use client";
 
-import Link from "next/link";
-import React from "react";
-import { AiFillBug } from "react-icons/ai";
+import { Box, Container, Flex } from "@radix-ui/themes";
 import classNames from "classnames";
-import { usePathname } from "next/navigation";
-import { Box } from "@radix-ui/themes";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { AiFillBug } from "react-icons/ai";
 
 const NavBar = () => {
   const links = [
@@ -17,34 +16,41 @@ const NavBar = () => {
   const { status, data: session } = useSession();
 
   return (
-    <div className="flex space-x-6 px-5 border-b h-16 items-center mb-5">
-      <Link href="/">
-        <AiFillBug />
-      </Link>
-      <ul className="flex space-x-6 ">
-        {links.map((link) => (
-          <Link
-            key={link.href}
-            className={classNames({
-              "text-zinc-900": link.href === currentPath,
-              "text-zinc-500": link.href !== currentPath,
-              "hover:text-zinc-800 transition-colors": true,
-            })}
-            href={link.href}
-          >
-            {link.label}
-          </Link>
-        ))}
-      </ul>
-      <Box>
-        {status === "authenticated" && (
-          <Link href="/api/auth/signout">Log out</Link>
-        )}
-        {status === "unauthenticated" && (
-          <Link href="/api/auth/signin">Login</Link>
-        )}
-      </Box>
-    </div>
+    <nav className="p-5 border-b mb-5">
+      <Container>
+        <Flex justify="between">
+          <Flex align="center" gap="5">
+            <Link href="/">
+              <AiFillBug />
+            </Link>
+            <ul className="flex space-x-6 ">
+              {links.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    className={classNames({
+                      "text-zinc-900": link.href === currentPath,
+                      "text-zinc-500": link.href !== currentPath,
+                      "hover:text-zinc-800 transition-colors": true,
+                    })}
+                    href={link.href}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </Flex>
+          <Box>
+            {status === "authenticated" && (
+              <Link href="/api/auth/signout">Log out</Link>
+            )}
+            {status === "unauthenticated" && (
+              <Link href="/api/auth/signin">Login</Link>
+            )}
+          </Box>
+        </Flex>
+      </Container>
+    </nav>
   );
 };
 
