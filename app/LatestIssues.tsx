@@ -32,6 +32,7 @@ const LatestIssues = async () => {
                       fallback="?"
                       size="3"
                       radius="full"
+                      referrerPolicy="no-referrer"
                     />
                   )}
                 </Flex>
