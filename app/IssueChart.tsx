@@ -23,8 +23,6 @@ const IssueChart = ({ open, inProgress, closed }: Props) => {
     { label: "Closed", value: closed },
   ];
 
-  console.log(data); // Check if data is logged correctly
-
   return (
     <Card>
       <ResponsiveContainer width="100%" height={300}>
@@ -33,7 +31,7 @@ const IssueChart = ({ open, inProgress, closed }: Props) => {
           <YAxis />
           <Tooltip />
           <Bar
-            barSize={50}
+            barSize={40}
             dataKey="value"
             style={{ fill: "var(--accent-8)" }}
           />
